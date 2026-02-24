@@ -8,11 +8,11 @@ use App\Models\Komponenty;
 
 <?=$this->section("content");?>
 
-<h1>Komponenty</h1>
+<h1>Info o komponentu</h1>
 
 <?php $table = new \CodeIgniter\View\Table(); 
 
-$table->setHeading("Název komponentu","Typ komponentu","Fotka"); 
+$table->setHeading("Název komponentu","Informace o komponentu","Fotka"); 
 
 foreach ($vyrobci as  $row){
     
@@ -21,7 +21,7 @@ foreach ($vyrobci as  $row){
         "height" => "200",
         //"width" => "200"
     ];
-    $table->addRow(anchor("typkomponentu/".$row->idVyrobce,$row->nazev), $row->typKomponent, img($obrazek) );
+    $table->addRow($row->nazev,$row->hodnota,img($obrazek) );
 }
 
 $template = array(

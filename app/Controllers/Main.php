@@ -24,7 +24,7 @@ class Main extends BaseController
         $komponenty= $dataKomp->find($vyrobce_id);
 
         $dataVyr = new Vyrobci();
-        $dataVyrobci = $dataVyr->join("komponent","komponent.vyrobce_id=vyrobce.idVyrobce","inner")->where("vyrobce_id",$vyrobce_id)->orderBy("nazev","asc")->paginate(20);
+        $dataVyrobci = $dataVyr->join("komponent","komponent.vyrobce_id=vyrobce.idVyrobce","inner")->join("typkomponent","typkomponent.idKomponent=komponent.typKomponent_id","inner")->where("vyrobce_id",$vyrobce_id)->orderBy("nazev","asc")->paginate(20);
 
         $data = [
                "vyrobci"=> $dataVyrobci,
@@ -33,5 +33,26 @@ class Main extends BaseController
                
         ];
         echo view("komponenty", $data);
+    }
+
+
+    public function typkomponentu($vyrobce_id)
+    {
+        $dataKomp = new Komponenty();
+        $komponenty= $dataKomp->find($vyrobce_id);
+
+        $dataVyr = new Vyrobci();
+        $dataVyrobci = $dataVyr->join("komponent","komponent.vyrobce_id=vyrobce.idVyrobce","inner")->join("typkomponent","typkomponent.idKomponent=komponent.typKomponent_id","inner")->where("vyrobce_id",$vyrobce_id)->orderBy("nazev","asc")->paginate(20);
+
+        $dataPar = new Vyrobci();
+        $dataParametr = $dataPar->
+
+        $data = [
+               "vyrobci"=> $dataVyrobci,
+               "komponenty"=> $komponenty,
+               "pager" => $dataVyr->pager
+               
+        ];
+        echo view("typkomponentu", $data);
     }
 }
