@@ -12,16 +12,15 @@ use App\Models\Komponenty;
 
 <?php $table = new \CodeIgniter\View\Table(); 
 
-$table->setHeading("Název komponentu","Informace o komponentu","Fotka"); 
+$table->setHeading("Název vlastnosti","Hodnota"); 
 
-foreach ($vyrobci as  $row){
+foreach ($parametr as  $row){
     
-    $obrazek= [
+   /* $obrazek= [
         "src" => base_url("komponenty/".$row->pic),
-        "height" => "200",
-        //"width" => "200"
-    ];
-    $table->addRow($row->nazev,$row->hodnota,img($obrazek) );
+        "height" => "200"
+    ];*/
+    $table->addRow($row->nazev,$row->hodnota );
 }
 
 $template = array(

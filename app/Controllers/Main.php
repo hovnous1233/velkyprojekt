@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\Komponenty;
+use App\Models\Parametr;
 use App\Models\Vyrobci;
 
 class Main extends BaseController
@@ -36,21 +37,18 @@ class Main extends BaseController
     }
 
 
-    public function typkomponentu($vyrobce_id)
+    public function typkomponentu()
     {
-        $dataKomp = new Komponenty();
-        $komponenty= $dataKomp->find($vyrobce_id);
+    
+        $dataPar = new Parametr();
+        $dataParametr =  $dataPar->join("nazevparametr","nazevparametr.id=parametr.nazevParametr_id", "inner")->paginate(20);
+      
 
-        $dataVyr = new Vyrobci();
-        $dataVyrobci = $dataVyr->join("komponent","komponent.vyrobce_id=vyrobce.idVyrobce","inner")->join("typkomponent","typkomponent.idKomponent=komponent.typKomponent_id","inner")->where("vyrobce_id",$vyrobce_id)->orderBy("nazev","asc")->paginate(20);
-
-        $dataPar = new Vyrobci();
-        $dataParametr = $dataPar->
-
+    
         $data = [
-               "vyrobci"=> $dataVyrobci,
-               "komponenty"=> $komponenty,
-               "pager" => $dataVyr->pager
+               "parametr"=>$dataParametr,
+               "pager" => $dataPar->pager,
+               
                
         ];
         echo view("typkomponentu", $data);
