@@ -8,19 +8,29 @@ use App\Models\Komponenty;
 
 <?=$this->section("content");?>
 
+
 <h1>Informace o komponentu</h1>
-
-
+<p><b>Název: </b> <?= $komponenty->nazev ?></p>
+<p><b>Výrobce: </b> <?= $komponenty->vyrobce ?></p>
+<p><b>Typ komponentu: </b> <?= $komponenty->typKomponent ?></p>
+<p><b>Odkaz na eshop: </b> <?= anchor($komponenty->odkaz.$komponenty->id) ?></p>
+<?php
+ $obrazek= [
+    "src" => base_url("komponenty/".$komponenty->pic),
+    "height" => "150",
+    //"width" => "200"
+];
+?>
+<p><b>Fotka: </b> <?= img($obrazek) ?></p>
 
 
 <?php $table = new \CodeIgniter\View\Table(); 
 
-$table->setHeading("Název vlastnosti","Hodnota","Fotka","Link na eshop"); 
+$table->setHeading("Název vlastnosti","Hodnota"); 
 
 foreach ($parametr as  $row){
     
-
-    $table->addRow($row->nazev,$row->hodnota,$row->odkaz );
+    $table->addRow($row->nazev,$row->hodnota );
 }
 
 $template = array(

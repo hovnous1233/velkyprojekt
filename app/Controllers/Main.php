@@ -48,7 +48,7 @@ class Main extends BaseController
 
 
         $dataKomp = new Komponenty();
-        $komponenty = $dataKomp->findAll();
+        $komponenty = $dataKomp->join("vyrobce","vyrobce.idVyrobce=komponent.vyrobce_id","inner")->join("typkomponent","typkomponent.idKomponent=komponent.typKomponent_id","inner")->find($id);
 
 
         $dataPar = new Parametr();
