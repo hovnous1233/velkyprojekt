@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\Komponenty;
 use App\Models\Parametr;
 use App\Models\Vyrobci;
+use Config\MyConfig;
 
 class Main extends BaseController
 {
@@ -21,11 +22,15 @@ class Main extends BaseController
     }
     public function komponenty($vyrobce_id)
     {
+
+        $config = new MyConfig();
+        $perPage = $config->perPage;
+
         $dataKomp = new Komponenty();
         $komponenty= $dataKomp->find($vyrobce_id);
 
         $dataVyr = new Vyrobci();
-        $dataVyrobci = $dataVyr->join("komponent","komponent.vyrobce_id=vyrobce.idVyrobce","inner")->join("typkomponent","typkomponent.idKomponent=komponent.typKomponent_id","inner")->where("vyrobce_id",$vyrobce_id)->orderBy("nazev","asc")->paginate(20);
+        $dataVyrobci = $dataVyr->join("komponent","komponent.vyrobce_id=vyrobce.idVyrobce","inner")->join("typkomponent","typkomponent.idKomponent=komponent.typKomponent_id","inner")->where("vyrobce_id",$vyrobce_id)->orderBy("nazev","asc")->paginate($perPage);
 
         $data = [
                "vyrobci"=> $dataVyrobci,
@@ -37,17 +42,24 @@ class Main extends BaseController
     }
 
 
-    public function typkomponentu()
+    public function typkomponentu($id)
     {
-    
-        $dataPar = new Parametr();
-        $dataParametr =  $dataPar->join("nazevparametr","nazevparametr.id=parametr.nazevParametr_id", "inner")->paginate(20);
-      
+       
 
+
+        $dataKomp = new Komponenty();
+        $komponenty = $dataKomp->findAll();
+
+
+        $dataPar = new Parametr();
+        $dataParametr =  $dataPar->join("nazevparametr","nazevparametr.id=parametr.nazevParametr_id", "inner")->where("komponent_id",$id)->findAll();
+      
+    
     
         $data = [
+                "komponenty"=>$komponenty,
                "parametr"=>$dataParametr,
-               "pager" => $dataPar->pager,
+            
                
                
         ];

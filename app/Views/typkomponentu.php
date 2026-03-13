@@ -8,19 +8,19 @@ use App\Models\Komponenty;
 
 <?=$this->section("content");?>
 
-<h1>Info o komponentu</h1>
+<h1>Informace o komponentu</h1>
+
+
+
 
 <?php $table = new \CodeIgniter\View\Table(); 
 
-$table->setHeading("Název vlastnosti","Hodnota"); 
+$table->setHeading("Název vlastnosti","Hodnota","Fotka","Link na eshop"); 
 
 foreach ($parametr as  $row){
     
-   /* $obrazek= [
-        "src" => base_url("komponenty/".$row->pic),
-        "height" => "200"
-    ];*/
-    $table->addRow($row->nazev,$row->hodnota );
+
+    $table->addRow($row->nazev,$row->hodnota,$row->odkaz );
 }
 
 $template = array(
@@ -49,7 +49,7 @@ $table->setTemplate($template);
 
 
 echo $table->generate();
-echo $pager->links();
+
 ?>
 
 

@@ -21,7 +21,7 @@ foreach ($vyrobci as  $row){
         "height" => "200",
         //"width" => "200"
     ];
-    $table->addRow(anchor("typkomponentu/".$row->idVyrobce,$row->nazev), $row->typKomponent, img($obrazek) );
+    $table->addRow(anchor("typkomponentu/".$row->id,$row->nazev), $row->typKomponent, img($obrazek) );
 }
 
 $template = array(
